@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CurrentUserProfile: View {
     var currentUser: User
@@ -21,7 +22,7 @@ struct CurrentUserProfile: View {
                 VStack(spacing:15) {
                     //Pic and stats
                     HStack {
-                        profileImage
+                        CircularImageView(user: currentUser)
                         Spacer()
                         statsView
                     }.padding(.horizontal)
@@ -39,7 +40,7 @@ struct CurrentUserProfile: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isPresentEditView.toggle()
+                      
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .foregroundColor(.black)
@@ -47,9 +48,6 @@ struct CurrentUserProfile: View {
                     }
                 }
             }
-        }
-        .fullScreenCover(isPresented: $isPresentEditView) {
-            EditProfileView()
         }
     }
 }
@@ -74,26 +72,15 @@ extension CurrentUserProfile {
             }
         }
     }
-    var profileImage: some View {
-        VStack {
-            if let src = currentUser.src {
-                Image(src)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: 70,maxHeight: 70)
-                    .clipShape(Circle())
-            }
-        }
-        
-    }
+   
     var biDataView: some View {
         VStack (alignment: .leading,spacing: 5){
-            if let name = currentUser.userName{
+            if let name = currentUser.userName {
                 Text(name)
                     .font(.footnote)
                     .fontWeight(.semibold)
             }
-            if let bio = currentUser.biodata {
+            if let bio = currentUser.bioData {
                 Text(bio)
             }
             
@@ -102,7 +89,7 @@ extension CurrentUserProfile {
     }
     var editProfileButton: some View {
         Button {
-            
+            isPresentEditView = currentUser.isCurrentUser
         } label: {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.black,lineWidth: 1)
@@ -112,5 +99,8 @@ extension CurrentUserProfile {
                         .foregroundColor(currentUser.isCurrentUser ? .black:.blue)
                 }
         }.padding(.horizontal)
+            .fullScreenCover(isPresented: $isPresentEditView) {
+                EditProfileView(user: currentUser)
+            }
     }
 }

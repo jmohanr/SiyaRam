@@ -10,17 +10,28 @@ import SwiftUI
 
 class SearchViewModel: ObservableObject {
     @Published var allUsers: [User] = []
+    @Published var  searchdata: [User] = []
+    @Published var searchText: String = "" {
+        didSet {
+            if searchText.count > 0 {
+                searchdata = searchdata.filter({$0.userName.contains(searchText)})
+            } else {
+                searchdata = allUsers
+            }
+        }
+    }
     
     init() {
         Task {
           try await loadAllUsers()
         }
     }
-    
+   
     @MainActor
     func loadAllUsers() async throws {
-        var users = try await UsersService.loadAllUsers()
+        let users = try await UsersService.loadAllUsers()
         self.allUsers = users
+        self.searchdata = users
         
     }
     

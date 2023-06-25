@@ -6,21 +6,30 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ExploreView: View {
     @State var user: User
     var body: some View {
         HStack {
-            Image(systemName: "person.circle")
-                .resizable()
-                .scaledToFill()
-                .foregroundColor(.gray)
-                .frame(maxWidth: 40,maxHeight: 40)
-                .clipShape(Circle())
+            if let src = user.src {
+                KFImage(URL(string: src))
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: 40,maxHeight: 40)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .scaledToFill()
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: 40,maxHeight: 40)
+                    .clipShape(Circle())
+            }
+           
                 
             VStack(alignment: .leading) {
                 Text(user.userName).fontWeight(.medium)
-                if let subHeading = user.biodata {
+                if let subHeading = user.bioData {
                     Text(subHeading).fontWeight(.light)
                         .font(.footnote)
                 }

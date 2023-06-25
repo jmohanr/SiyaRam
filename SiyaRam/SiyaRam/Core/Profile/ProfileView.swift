@@ -27,7 +27,7 @@ struct ProfileView: View {
                 VStack(spacing:15) {
                     //Pic and stats
                     HStack {
-                        profileImage
+                        CircularImageView(user: currentUser)
                         Spacer()
                         statsView
                     }.padding(.horizontal)
@@ -40,13 +40,14 @@ struct ProfileView: View {
                     GridItemView()
                 }
             }
+           
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if currentUser.isCurrentUser {
                         Button {
-                            isPresentEditView.toggle()
+                         
                         } label: {
                             Image(systemName: "line.3.horizontal")
                                 .foregroundColor(.black)
@@ -56,10 +57,6 @@ struct ProfileView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $isPresentEditView) {
-            Text("Edit Profile")
-        }
-        
     }
 }
 
@@ -84,18 +81,7 @@ extension ProfileView {
         }
     }
     
-    var profileImage: some View {
-        VStack {
-            if let src = currentUser.src {
-                Image(src)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: 70,maxHeight: 70)
-                    .clipShape(Circle())
-            }
-        }
-        
-    }
+
     var biDataView: some View {
         VStack (alignment: .leading,spacing: 5){
             if let name = currentUser.userName {
@@ -103,7 +89,7 @@ extension ProfileView {
                     .font(.footnote)
                     .fontWeight(.semibold)
             }
-            if let bio = currentUser.biodata {
+            if let bio = currentUser.bioData {
                 Text(bio)
             }
             
@@ -112,7 +98,7 @@ extension ProfileView {
     }
     var editProfileButton: some View {
         Button {
-           
+            isPresentEditView = currentUser.isCurrentUser
         } label: {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(currentUser.isCurrentUser ? Color.black:Color.blue,lineWidth: 1)
@@ -122,5 +108,8 @@ extension ProfileView {
                         .foregroundColor(currentUser.isCurrentUser ? .black:.blue)
                 }
         }.padding(.horizontal)
+            .fullScreenCover(isPresented: $isPresentEditView) {
+                EditProfileView(user: currentUser)
+            }
     }
 }

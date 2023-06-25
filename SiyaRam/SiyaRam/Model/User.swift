@@ -14,7 +14,7 @@ struct User: Identifiable,Hashable,Codable {
     var emailId: String
     var userName: String
     var src: String?
-    var biodata: String?
+    var bioData: String?
     
     var isCurrentUser: Bool {
         guard let uId = Auth.auth().currentUser?.uid else {return false}
