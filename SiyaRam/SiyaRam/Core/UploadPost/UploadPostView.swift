@@ -32,17 +32,19 @@ extension UploadPostView {
     var topView: some View {
         HStack {
             Button {
-                caption = ""
-                viewModel.clearPostModel()
-                selectedIndex = 0
-         
-            } label: {
+                clearPostData()
+                     } label: {
                 Text("Cancel")
             }
             Spacer()
             Text("NewPost")
             Spacer()
-            Button {} label: {
+            Button {
+                Task {
+                    try await viewModel.uplaodPost(caption:caption)
+                    clearPostData()
+                }
+            } label: {
                 Text("Upload")
             }.disabled(disbaleUpload)
         }
@@ -60,6 +62,12 @@ extension UploadPostView {
             TextField("Enter your caption...", text: $caption,axis: .vertical)
                 Spacer()
         }
+    }
+    
+    func clearPostData() {
+        caption = ""
+        viewModel.clearPostModel()
+        selectedIndex = 0
     }
 }
 

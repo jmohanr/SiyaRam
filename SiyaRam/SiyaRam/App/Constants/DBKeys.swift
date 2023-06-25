@@ -8,4 +8,5 @@
 import Foundation
 enum DBKeys: String {
     case users = "users"
+    case posts = "posts"
 }

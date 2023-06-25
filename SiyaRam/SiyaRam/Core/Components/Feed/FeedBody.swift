@@ -31,16 +31,16 @@ struct FeedBody: View {
                 .rotationEffect(.degrees(-3))
               
             HStack(spacing: 15) {
-                SocialView(name: feedData.isLiked ? "heart.fill":"heart", tintColor: feedData.isLiked ? .pink:.black,type: .LIKE)
+                SocialView(name: feedData.isLiked ?? false ? "heart.fill":"heart", tintColor: feedData.isLiked ?? false ? .pink:.black,type: .LIKE)
                 SocialView(name: "bubble.right", tintColor: .black,type: .COMMENT)
                 SocialView(name: "paperplane", tintColor: .black,type: .SHARE)
                 Spacer()
             }
             .tint(.black)
             VStack(alignment: .leading,spacing: 15) {
-                Text(feedData.likesCount>0 ? "\(feedData.likesCount) Likes": "").isHidden(feedData.likesCount>0 ? false:true,remove: feedData.likesCount>0 ? false:true)
+                Text(feedData.likesCount ?? 0>0 ? "\(feedData.likesCount ?? 0) Likes": "").isHidden(feedData.likesCount ?? 0 > 0 ? false:true,remove: feedData.likesCount ?? 0 > 0 ? false:true)
                 Text(feedData.feedDescription)
-                Text(feedData.time).foregroundColor(.gray)
+             
             }
         }.padding(.horizontal,5)
        
@@ -51,7 +51,7 @@ struct FeedBody: View {
 
 struct FeedBody_Previews: PreviewProvider {
     static var previews: some View {
-        FeedBody(feedData: FeedData(src: "3", userName: "Hanuman", srcType: .Image, isLiked: true, likesCount: 3, feedDescription: "Hello, World!", time: "3h ago"))
+        FeedBody(feedData: FeedData(id: "",src: "3", userName: "Hanuman", srcType: .Image, isLiked: true, likesCount: 3, feedDescription: "Hello, World!"))
     }
 }
 

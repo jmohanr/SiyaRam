@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum SrcType {
+enum SrcType: Codable {
     case Image
     case Gif
     case Video

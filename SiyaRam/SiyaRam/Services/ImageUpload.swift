@@ -11,7 +11,7 @@ import Firebase
 import FirebaseStorage
 
 class ImageUpload {
-    
+    @MainActor
     static func uploadImage(uImage: UIImage) async throws -> String? {
         guard let imgData = uImage.jpegData(compressionQuality: 0.8) else { return nil }
         let fileName = UUID().uuidString

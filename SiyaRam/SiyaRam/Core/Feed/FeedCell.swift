@@ -13,7 +13,7 @@ struct FeedCell: View {
             ScrollView {
                 LazyVStack{
                     ForEach(FeedData.feedsData()) { item  in
-                        FeedHeader(feedHead: FeedHead(src: item.src, name: item.userName))
+                        FeedHeader(feedHead: FeedHead(src: item.src, name: item.userName ?? ""))
                         FeedBody(feedData: item)
                         Divider()
                     }
