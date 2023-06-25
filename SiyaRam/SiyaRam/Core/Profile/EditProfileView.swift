@@ -11,6 +11,7 @@ import PhotosUI
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @State var selectedPhoto = true
+    @State var photosPickerItem: PhotosPickerItem
     var body: some View {
         VStack {
             HStack {
@@ -26,6 +27,9 @@ struct EditProfileView: View {
                 }
             }.foregroundColor(.blue)
             Divider()
+            photosPicker(isPresented: $selectedPhoto, selection: $photosPickerItem) {
+                
+            }
         }.padding(.horizontal)
     }
 }
