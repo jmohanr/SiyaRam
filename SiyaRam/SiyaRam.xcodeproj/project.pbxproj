@@ -43,6 +43,9 @@
 		AEE11B1D2A47CBA0009C4C15 /* DBKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B1C2A47CBA0009C4C15 /* DBKeys.swift */; };
 		AEE11B1F2A47D5C0009C4C15 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B1E2A47D5C0009C4C15 /* ImageUpload.swift */; };
 		AEE11B242A47E301009C4C15 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B232A47E301009C4C15 /* CircularImageView.swift */; };
+		AEE11B262A49097F009C4C15 /* FeedsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B252A49097F009C4C15 /* FeedsViewModel.swift */; };
+		AEE11B282A4916C6009C4C15 /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B272A4916C6009C4C15 /* PostsService.swift */; };
+		AEE11B2A2A4919B9009C4C15 /* PostGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B292A4919B9009C4C15 /* PostGridViewModel.swift */; };
 		DDE3031E5F0B5FDE825D17CE /* Pods_SiyaRam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB8F2B045D7F8FE99A46472 /* Pods_SiyaRam.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +89,9 @@
 		AEE11B1C2A47CBA0009C4C15 /* DBKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBKeys.swift; sourceTree = "<group>"; };
 		AEE11B1E2A47D5C0009C4C15 /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
 		AEE11B232A47E301009C4C15 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
+		AEE11B252A49097F009C4C15 /* FeedsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsViewModel.swift; sourceTree = "<group>"; };
+		AEE11B272A4916C6009C4C15 /* PostsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsService.swift; sourceTree = "<group>"; };
+		AEE11B292A4919B9009C4C15 /* PostGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridViewModel.swift; sourceTree = "<group>"; };
 		ECB8F2B045D7F8FE99A46472 /* Pods_SiyaRam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SiyaRam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -147,6 +153,7 @@
 			children = (
 				AEE11B142A47C08B009C4C15 /* UsersService.swift */,
 				AEE11B1E2A47D5C0009C4C15 /* ImageUpload.swift */,
+				AEE11B272A4916C6009C4C15 /* PostsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -226,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				AEE11AF32A47BFE1009C4C15 /* FeedCell.swift */,
+				AEE11B252A49097F009C4C15 /* FeedsViewModel.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -358,6 +366,7 @@
 			children = (
 				AEE11AF12A47BFCC009C4C15 /* GridItemView.swift */,
 				AEE11B232A47E301009C4C15 /* CircularImageView.swift */,
+				AEE11B292A4919B9009C4C15 /* PostGridViewModel.swift */,
 			);
 			path = Coomon;
 			sourceTree = "<group>";
@@ -504,10 +513,12 @@
 				AEE11ADC2A47BF2B009C4C15 /* AuthService.swift in Sources */,
 				AEE11B0C2A47C076009C4C15 /* UIScreen.swift in Sources */,
 				AEE11B012A47C044009C4C15 /* SearchViewModel.swift in Sources */,
+				AEE11B2A2A4919B9009C4C15 /* PostGridViewModel.swift in Sources */,
 				AEE11AED2A47BF9A009C4C15 /* FeedHeader.swift in Sources */,
 				AEE11ADF2A47BF41009C4C15 /* RegistrationViewModel.swift in Sources */,
 				AEE11B1B2A47C6B9009C4C15 /* EditProfileViewModel.swift in Sources */,
 				AEE11AF22A47BFCC009C4C15 /* GridItemView.swift in Sources */,
+				AEE11B262A49097F009C4C15 /* FeedsViewModel.swift in Sources */,
 				AEE11ABD2A47BE04009C4C15 /* ContentView.swift in Sources */,
 				AEE11B1D2A47CBA0009C4C15 /* DBKeys.swift in Sources */,
 				AEE11B242A47E301009C4C15 /* CircularImageView.swift in Sources */,
@@ -523,6 +534,7 @@
 				AEE11AE82A47BF59009C4C15 /* SignUpView.swift in Sources */,
 				AEE11AFE2A47C035009C4C15 /* ContentViewModel.swift in Sources */,
 				AEE11AEE2A47BF9A009C4C15 /* FeedBody.swift in Sources */,
+				AEE11B282A4916C6009C4C15 /* PostsService.swift in Sources */,
 				AEE11AF02A47BFB1009C4C15 /* ExploreView.swift in Sources */,
 				AEE11B122A47C081009C4C15 /* FeedData.swift in Sources */,
 				AEE11ABB2A47BE04009C4C15 /* SiyaRamApp.swift in Sources */,

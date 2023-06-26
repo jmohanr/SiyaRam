@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 enum SrcType: Codable {
     case Image
@@ -22,6 +23,8 @@ struct GridItemView: View {
     
     @State var numberOfGrids:CGFloat  = 2
     @State var gridItems: [GridItem] = []
+    
+    @StateObject var vieModel: PostGridViewModel
     var postData: [PostData] = [PostData(src: "2", srcType: .Image),
                                 PostData(src: "3", srcType: .Video),
                                 PostData(src: "4", srcType: .Image),
@@ -35,7 +38,9 @@ struct GridItemView: View {
                                 PostData(src: "11", srcType: .Image),
                                 PostData(src: "12", srcType: .Image)]
     
-    
+    init(user: User) {
+        self._vieModel = StateObject(wrappedValue: PostGridViewModel(user: user))
+    }
     
     var body: some View {
         
@@ -43,8 +48,8 @@ struct GridItemView: View {
             ScrollView {
                LazyVGrid(columns: gridItems,pinnedViews: [.sectionHeaders,.sectionFooters]) {
                     Section {
-                        ForEach(postData,id: \.src) { item in
-                            Image(item.src).resizable()
+                        ForEach(vieModel.feeds,id: \.id) { item in
+                            KFImage(URL(string: item.src)).resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: (UIScreen.screenWidth/numberOfGrids)-1,maxHeight: (UIScreen.screenWidth/numberOfGrids)-1)
                                 .clipped()
@@ -108,6 +113,6 @@ struct GridItemView: View {
 
 struct GridItemView_Previews: PreviewProvider {
     static var previews: some View {
-        GridItemView()
+        GridItemView(user: User(id: "", emailId: "", userName: ""))
     }
 }

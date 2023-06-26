@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct FeedCell: View {
+    @StateObject var viewModel = FeedsViewModel()
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack{
-                    ForEach(FeedData.feedsData()) { item  in
-                        FeedHeader(feedHead: FeedHead(src: item.src, name: item.userName ?? ""))
+                    ForEach(viewModel.feeds,id: \.feedDescription) { item  in
+                        FeedHeader(feedHead: FeedHead(src: item.src, name: item.title ))
                         FeedBody(feedData: item)
                         Divider()
                     }

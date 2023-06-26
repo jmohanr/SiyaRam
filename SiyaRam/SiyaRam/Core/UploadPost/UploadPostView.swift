@@ -9,11 +9,13 @@ import SwiftUI
 import PhotosUI
 
 struct UploadPostView: View {
+    var currentUser: User
     @State var caption = ""
     @StateObject var viewModel =  UploadPostViewModel()
     @State var isPresentPhotoPicker: Bool = true
     @State var disbaleUpload = false
     @Binding var selectedIndex: Int
+    
     var body: some View {
         VStack(spacing: 20) {
             topView
@@ -41,7 +43,7 @@ extension UploadPostView {
             Spacer()
             Button {
                 Task {
-                    try await viewModel.uplaodPost(caption:caption)
+                    try await viewModel.uplaodPost(caption:caption,user: currentUser)
                     clearPostData()
                 }
             } label: {
@@ -73,6 +75,6 @@ extension UploadPostView {
 
 struct UploadPostView_Previews: PreviewProvider {
     static var previews: some View {
-        UploadPostView(selectedIndex: .constant(0))
+        UploadPostView(currentUser: User(id: "", emailId: "", userName: " "), selectedIndex: .constant(0))
     }
 }

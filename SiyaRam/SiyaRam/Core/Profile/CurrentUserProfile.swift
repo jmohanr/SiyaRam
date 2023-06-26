@@ -32,7 +32,7 @@ struct CurrentUserProfile: View {
                     editProfileButton
                    
                     Divider()
-                    GridItemView()
+                    GridItemView(user: currentUser)
                 }
             }
             .navigationTitle("Profile")
@@ -40,7 +40,7 @@ struct CurrentUserProfile: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                      
+                        AuthService.shared.logoutUser()
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .foregroundColor(.black)

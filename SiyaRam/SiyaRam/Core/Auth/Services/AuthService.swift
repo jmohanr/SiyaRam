@@ -58,9 +58,7 @@ class AuthService {
     func loadUser() async throws {
         self.userSession = Auth.auth().currentUser
         guard let userId = userSession?.uid else {return}
-        let shot = try? await Firestore.firestore().collection(DBKeys.users.rawValue).document(userId).getDocument()
-        self.currentUser = try? shot?.data(as: User.self)
-       
+        self.currentUser = try await UsersService.fetchUser(withuID: userId)
     }
     
    

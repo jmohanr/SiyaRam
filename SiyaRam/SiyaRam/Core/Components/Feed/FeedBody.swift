@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 
 enum SocialType {
@@ -21,14 +22,17 @@ struct FeedBody: View {
     
     var body: some View {
         VStack(alignment: .leading,spacing: 15) {
-            Image(feedData.src)
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: imageDimension,maxHeight: imageDimension,alignment: .center)
-                .clipped()
-                .cornerRadius(10)
-                .shadow(color: .black, radius: 20)
-                .rotationEffect(.degrees(-3))
+            if let img = feedData.src {
+                KFImage(URL(string: img))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: imageDimension,maxHeight: imageDimension,alignment: .center)
+                    .clipped()
+                    .cornerRadius(10)
+                    .shadow(color: .black, radius: 20)
+                    .rotationEffect(.degrees(-3))
+            }
+            
               
             HStack(spacing: 15) {
                 SocialView(name: feedData.isLiked ?? false ? "heart.fill":"heart", tintColor: feedData.isLiked ?? false ? .pink:.black,type: .LIKE)
@@ -39,19 +43,17 @@ struct FeedBody: View {
             .tint(.black)
             VStack(alignment: .leading,spacing: 15) {
                 Text(feedData.likesCount ?? 0>0 ? "\(feedData.likesCount ?? 0) Likes": "").isHidden(feedData.likesCount ?? 0 > 0 ? false:true,remove: feedData.likesCount ?? 0 > 0 ? false:true)
-                Text(feedData.feedDescription)
+                Text(feedData.feedDescription ?? "")
              
             }
         }.padding(.horizontal,5)
        
-    }
-    
-    
+    }    
 }
 
 struct FeedBody_Previews: PreviewProvider {
     static var previews: some View {
-        FeedBody(feedData: FeedData(id: "",src: "3", userName: "Hanuman", srcType: .Image, isLiked: true, likesCount: 3, feedDescription: "Hello, World!"))
+        FeedBody(feedData: FeedData(id: "",src: "https://firebasestorage.googleapis.com:443/v0/b/siyaram-483ee.appspot.com/o/profile_images%2FD0353D1C-7213-4393-B199-27D6442C2E32?alt=media&token=bad4b90f-3828-4531-8d0a-607acb1e3372", title: "", srcType: .Image, isLiked: true, likesCount: 0, feedDescription: ""))
     }
 }
 

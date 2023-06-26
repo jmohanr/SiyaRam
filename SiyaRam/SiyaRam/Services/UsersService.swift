@@ -10,6 +10,10 @@ import Firebase
 
 class UsersService {
     
+    static func fetchUser(withuID uid: String) async throws -> User {
+        let shot = try await Firestore.firestore().collection(DBKeys.users.rawValue).document(uid).getDocument()
+        return try shot.data(as: User.self)
+    }
     
     @MainActor
    static func loadAllUsers() async throws -> [User] {

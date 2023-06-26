@@ -27,7 +27,7 @@ struct MainTabView: View {
                 .tabItem {
                 Image(systemName: "magnifyingglass")
             }.tag(1)
-            UploadPostView(selectedIndex: $selectedIndex)
+            UploadPostView(currentUser: currentUser, selectedIndex: $selectedIndex)
                 .onAppear {
                     selectedIndex = 2
                 }

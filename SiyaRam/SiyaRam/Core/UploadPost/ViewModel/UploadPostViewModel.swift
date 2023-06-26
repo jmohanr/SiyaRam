@@ -14,6 +14,7 @@ import FirebaseFirestoreSwift
 
 @MainActor
 class UploadPostViewModel: ObservableObject {
+    
     @Published var photoItem: PhotosPickerItem? {
         didSet {
             Task{
@@ -34,12 +35,13 @@ class UploadPostViewModel: ObservableObject {
         self.uiImage = uImage
     }
     @MainActor
-    func uplaodPost(caption: String) async throws {
+    func uplaodPost(caption: String,user: User) async throws {
         guard let uId = Auth.auth().currentUser?.uid else { return  }
         guard let img = self.uiImage else { return }
         let path = Firestore.firestore().collection(DBKeys.posts.rawValue).document()
         guard let imgURl = try? await ImageUpload.uploadImage(uImage: img) else { return }
-        let post = FeedData(id: uId, src: imgURl, srcType: .Image, feedDescription: caption,time: Timestamp())
+        
+        let post = FeedData(id: path.documentID, src: imgURl, title: user.userName, srcType: .Image, feedDescription: caption,time: Timestamp(),ownerId: uId)
         guard let encodePost = try? Firestore.Encoder().encode(post) else { return }
         try await path.setData(encodePost)
     }

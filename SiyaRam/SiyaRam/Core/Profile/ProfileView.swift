@@ -37,7 +37,7 @@ struct ProfileView: View {
                     editProfileButton
                    
                     Divider()
-                    GridItemView()
+                    GridItemView(user: currentUser)
                 }
             }
            
