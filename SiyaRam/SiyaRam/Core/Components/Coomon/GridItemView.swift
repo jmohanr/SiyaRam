@@ -12,6 +12,7 @@ enum SrcType: Codable {
     case Image
     case Gif
     case Video
+    case Text
 }
 
 struct GridItemView: View {
@@ -32,6 +33,7 @@ struct GridItemView: View {
                LazyVGrid(columns: gridItems,pinnedViews: [.sectionHeaders,.sectionFooters]) {
                     Section {
                         ForEach(vieModel.feeds,id: \.id) { item in
+                            
                             KFImage(URL(string: item.src)).resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: (UIScreen.screenWidth/numberOfGrids)-1,maxHeight: (UIScreen.screenWidth/numberOfGrids)-1)
@@ -47,6 +49,7 @@ struct GridItemView: View {
                 if vieModel.feeds.count <= 0 {
                     nodataView()
                 }
+                Loader(message: "Fetching ....",count: $vieModel.itemsCount)
             }
             .padding(.horizontal,5)
             .onAppear {

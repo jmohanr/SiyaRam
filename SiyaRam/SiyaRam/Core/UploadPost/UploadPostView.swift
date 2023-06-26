@@ -15,18 +15,22 @@ struct UploadPostView: View {
     @State var isPresentPhotoPicker: Bool = true
     @State var disbaleUpload = false
     @Binding var selectedIndex: Int
-    
+    @State private var showAdditionalView = false
+
     var body: some View {
         VStack(spacing: 20) {
+            if showAdditionalView {
+                Loader(count: $viewModel.itemsCount).isHidden(!showAdditionalView)
+            }
             topView
             postView
             Spacer()
+           
         }.padding(.horizontal)
             .onAppear(){
                 isPresentPhotoPicker = true
                 disbaleUpload  = false
             }
-            .photosPicker(isPresented: $isPresentPhotoPicker, selection: $viewModel.photoItem)
     }
 }
 
@@ -35,6 +39,7 @@ extension UploadPostView {
         HStack {
             Button {
                 clearPostData()
+                showAdditionalView = false
             } label: {
                 Text("Cancel")
             }
@@ -42,6 +47,8 @@ extension UploadPostView {
             Text("NewPost")
             Spacer()
             Button {
+                guard viewModel.caption.count > 0 || viewModel.description.count > 0 else { return  }
+                showAdditionalView = true
                 Task {
                     try await viewModel.uplaodPost(user: currentUser)
                     clearPostData()
@@ -54,13 +61,12 @@ extension UploadPostView {
     
     var postView: some View {
         HStack {
-            if let image = viewModel.image {
-                image.resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: 100,maxHeight: 100)
-                    .clipped()
-                    .cornerRadius(10)
-            }
+            PhotosPicker(selection: $viewModel.photoItem) {
+                VStack {
+                    CircularImageView(imageUrl: viewModel.src)
+                }
+            }.padding(.vertical,10)
+            
             VStack(spacing: 15) {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(
@@ -71,7 +77,6 @@ extension UploadPostView {
                         TextField("Enter your caption...", text: $viewModel.caption,axis: .vertical)
                             .padding(.horizontal)
                     }
-                    
                 RoundedRectangle(cornerRadius: 10)
                     .fill(
                         Color.gray.opacity(0.2)
@@ -80,19 +85,20 @@ extension UploadPostView {
                     .overlay {
                         TextField("Enter text ...", text: $viewModel.description,axis: .vertical)
                             .padding(.horizontal)
-                            
-                            
                     }
                 
             }
-
             Spacer()
         }
     }
     
     func clearPostData() {
-        viewModel.clearPostModel()
-        selectedIndex = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+            self.showAdditionalView = false
+            self.viewModel.clearPostModel()
+            self.selectedIndex = 0
+        })
+       
     }
 }
 

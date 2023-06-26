@@ -12,13 +12,19 @@ struct FeedsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack{
-                    ForEach(viewModel.posts,id: \.id) { item  in
-                        FeedHeader(post: item )
-                        FeedBody(feedData: item)
-                        Divider()
-                    }
-                }.padding(.top,10)
+                if viewModel.posts.count <= 0 {
+                    nodataView()
+                }
+                ZStack {
+                    LazyVStack{
+                        ForEach(viewModel.posts,id: \.id) { item  in
+                            FeedHeader(post: item )
+                            FeedBody(feedData: item)
+                            Divider()
+                        }
+                    }.padding(.top,10)
+                    Loader(message: "Fetching ....",count: $viewModel.itemsCount)
+                }
             }.navigationTitle("Feeds")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -28,8 +34,17 @@ struct FeedsView: View {
                         }
                     }
                 }.tint(.black)
+           
+                .onAppear(){
+                    Task{
+                        try await viewModel.fetchPosts()
+                    }
+                }
         }
         
+    }
+    func nodataView() -> some View {
+        return Text("No Posts are available")
     }
 }
 

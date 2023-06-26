@@ -22,7 +22,7 @@ struct FeedBody: View {
   
     var body: some View {
         VStack(alignment: .leading,spacing: 15) {
-            if let img = feedData.src {
+            if let img = feedData.src,img.count > 0 {
                 KFImage(URL(string: img))
                     .resizable()
                     .scaledToFill()
@@ -55,7 +55,7 @@ struct FeedBody: View {
 
 struct FeedBody_Previews: PreviewProvider {
     static var previews: some View {
-        FeedBody(feedData: Post(id: "",src: "https://firebasestorage.googleapis.com:443/v0/b/siyaram-483ee.appspot.com/o/profile_images%2FD0353D1C-7213-4393-B199-27D6442C2E32?alt=media&token=bad4b90f-3828-4531-8d0a-607acb1e3372", title: "", srcType: .Image, isLiked: true, likesCount: 0, feedDescription: ""))
+        FeedBody(feedData: Post(id: "",src: "", title: "", srcType: .Image, isLiked: true, likesCount: 0, feedDescription: ""))
     }
 }
 

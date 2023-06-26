@@ -12,7 +12,7 @@ class PostsService {
     private static let fireStorePath = Firestore.firestore().collection(DBKeys.posts.rawValue)
     
     static func fetchPosts() async throws -> [Post] {
-        let snapshot = try await fireStorePath.getDocuments()
+        let snapshot = try await fireStorePath.order(by: "time", descending: true).getDocuments()
         var feeds = try snapshot.documents.compactMap({try $0.data(as: Post.self)})
         for i in 0..<feeds.count {
             guard let ownerId = feeds[i].ownerId else { return feeds}
@@ -28,6 +28,7 @@ class PostsService {
     
     
     static func fetchCurrentUserPosts(withuid uId: String) async throws -> [Post] {
+        
         let shot = try await fireStorePath.whereField("ownerId", isEqualTo: uId).getDocuments()
         return try shot.documents.compactMap({try $0.data(as: Post.self)})
     }

@@ -11,16 +11,19 @@ import Firebase
 class FeedsViewModel: ObservableObject {
     @Published var posts: [Post] = []
     static let fireStorePath = Firestore.firestore().collection(DBKeys.likes.rawValue)
-
+    @Published var itemsCount: Int = 0
+    @Published var dataCount: Int = 1
+    /*
     init() {
         Task {
             try await fetchPosts()
         }
     }
-    
+    */
     @MainActor
     func fetchPosts() async throws {
         self.posts = try await PostsService.fetchPosts()
+        itemsCount = 1
     }
     
     @MainActor
@@ -30,6 +33,8 @@ class FeedsViewModel: ObservableObject {
         let likes = Likes(id: path.documentID, postId: postId, likesCount: count, ownerId: uId, isLiked: isLiked)
         guard let encodeLike = try? Firestore.Encoder().encode(likes) else {return}
         try await path.setData(encodeLike)
+        dataCount = posts.count
     }
 }
 
+//order(by: "time")

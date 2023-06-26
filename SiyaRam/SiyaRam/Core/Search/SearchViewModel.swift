@@ -11,6 +11,8 @@ import SwiftUI
 class SearchViewModel: ObservableObject {
     @Published var allUsers: [User] = []
     @Published var  searchdata: [User] = []
+    @Published var itemsCount: Int = 0
+
     @Published var searchText: String = "" {
         didSet {
             if searchText.count > 0 {
@@ -32,6 +34,7 @@ class SearchViewModel: ObservableObject {
         let users = try await UsersService.loadAllUsers()
         self.allUsers = users
         self.searchdata = users
+        itemsCount = 1
         
     }
     

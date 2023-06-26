@@ -50,6 +50,8 @@
 		AEE11B2F2A49238C009C4C15 /* BioEditDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B2E2A49238C009C4C15 /* BioEditDetailsView.swift */; };
 		AEE11B332A492E1A009C4C15 /* Likes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B322A492E1A009C4C15 /* Likes.swift */; };
 		AEE11B352A492E23009C4C15 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B342A492E23009C4C15 /* Comments.swift */; };
+		AEE11B372A496823009C4C15 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B362A496823009C4C15 /* Loader.swift */; };
+		AEE11B392A497495009C4C15 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE11B382A497495009C4C15 /* NoDataView.swift */; };
 		DDE3031E5F0B5FDE825D17CE /* Pods_SiyaRam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB8F2B045D7F8FE99A46472 /* Pods_SiyaRam.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,8 @@
 		AEE11B2E2A49238C009C4C15 /* BioEditDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioEditDetailsView.swift; sourceTree = "<group>"; };
 		AEE11B322A492E1A009C4C15 /* Likes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Likes.swift; sourceTree = "<group>"; };
 		AEE11B342A492E23009C4C15 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		AEE11B362A496823009C4C15 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		AEE11B382A497495009C4C15 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		ECB8F2B045D7F8FE99A46472 /* Pods_SiyaRam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SiyaRam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -378,6 +382,8 @@
 				AEE11AF12A47BFCC009C4C15 /* GridItemView.swift */,
 				AEE11B232A47E301009C4C15 /* CircularImageView.swift */,
 				AEE11B292A4919B9009C4C15 /* PostGridViewModel.swift */,
+				AEE11B362A496823009C4C15 /* Loader.swift */,
+				AEE11B382A497495009C4C15 /* NoDataView.swift */,
 			);
 			path = Coomon;
 			sourceTree = "<group>";
@@ -554,6 +560,7 @@
 				AEE11AE72A47BF59009C4C15 /* LoginView.swift in Sources */,
 				AEE11B132A47C081009C4C15 /* User.swift in Sources */,
 				AEE11AE82A47BF59009C4C15 /* SignUpView.swift in Sources */,
+				AEE11B392A497495009C4C15 /* NoDataView.swift in Sources */,
 				AEE11B352A492E23009C4C15 /* Comments.swift in Sources */,
 				AEE11AFE2A47C035009C4C15 /* ContentViewModel.swift in Sources */,
 				AEE11AEE2A47BF9A009C4C15 /* FeedBody.swift in Sources */,
@@ -562,6 +569,7 @@
 				AEE11B2D2A4922B2009C4C15 /* ProfileHeaderView.swift in Sources */,
 				AEE11B122A47C081009C4C15 /* Post.swift in Sources */,
 				AEE11ABB2A47BE04009C4C15 /* SiyaRamApp.swift in Sources */,
+				AEE11B372A496823009C4C15 /* Loader.swift in Sources */,
 				AEE11B0D2A47C076009C4C15 /* Modifiers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

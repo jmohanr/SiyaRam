@@ -12,6 +12,7 @@ class PostGridViewModel: ObservableObject {
     @Published var user: User
     @Published var feeds: [Post] = []
     
+    @Published var itemsCount: Int = 0
     init(user: User) {
         self.user = user
         Task {
@@ -21,10 +22,12 @@ class PostGridViewModel: ObservableObject {
     
     @MainActor
     func fethUserPosts() async throws {
-        self.feeds = try await PostsService.fetchCurrentUserPosts(withuid: self.user.id )
-        for i in 0..<self.feeds.count {
-            feeds[i].user = self.user
+        var posts = try await PostsService.fetchCurrentUserPosts(withuid: self.user.id )
+        for i in 0..<posts.count {
+            posts[i].user = self.user
         }
+        self.feeds = posts.filter({$0.srcType != .Text})
+        itemsCount = 1
     }
     
 }
