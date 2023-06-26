@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Firebase
 
-struct User: Identifiable,Hashable,Codable {
+struct User: Identifiable,Codable {
     var id: String
     var emailId: String
     var userName: String

@@ -10,7 +10,7 @@ import Firebase
 
 class PostGridViewModel: ObservableObject {
     @Published var user: User
-    @Published var feeds: [FeedData] = []
+    @Published var feeds: [Post] = []
     
     init(user: User) {
         self.user = user

@@ -9,10 +9,10 @@ import SwiftUI
 import Kingfisher
 
 struct CircularImageView: View {
-    @State var user: User?
+    var imageUrl: String?
     var body: some View {
         VStack {
-            if let src = user?.src {
+            if let src = imageUrl {
                 KFImage(URL(string: src))
                     .resizable()
                     .clipShape(Circle())
@@ -32,6 +32,6 @@ struct CircularImageView: View {
 
 struct CircularImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CircularImageView(user: User(id: "", emailId: "", userName: ""))
+        CircularImageView(imageUrl: "")
     }
 }

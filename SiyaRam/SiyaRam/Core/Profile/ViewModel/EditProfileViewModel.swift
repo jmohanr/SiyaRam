@@ -20,7 +20,7 @@ class EditProfileViewModel: ObservableObject {
             }
         }
     }
-    
+    var data: [String:Any] = [:]
     @Published var image: Image?
     @Published var name: String = ""
     @Published var bioData: String = ""
@@ -42,19 +42,19 @@ class EditProfileViewModel: ObservableObject {
         guard let data = try? await item.loadTransferable(type: Data.self) else {return}
         guard let uImage = UIImage(data: data) else {return}
         self.uiImage = uImage
+        let imageUrl = try? await ImageUpload.uploadImage(uImage: uImage)
+        self.src = imageUrl
+        self.data["src"] = imageUrl
         self.image = Image(uiImage: uImage)
     }
     
     func updateUserData() async throws {
-        var data: [String:Any] = [:]
+        
         if !name.isEmpty && user?.userName != name {
             data["userName"] = name
             
         }
-        if let img = self.uiImage {
-            let imageUrl = try? await ImageUpload.uploadImage(uImage: img)
-            data["src"] = imageUrl
-        }
+       
         if !bioData.isEmpty && user?.bioData != bioData {
             data["bioData"] = bioData
         }

@@ -14,32 +14,15 @@ enum SrcType: Codable {
     case Video
 }
 
-struct PostData {
-    var src: String
-    var srcType: SrcType
-}
-
 struct GridItemView: View {
     
     @State var numberOfGrids:CGFloat  = 2
     @State var gridItems: [GridItem] = []
     
-    @StateObject var vieModel: PostGridViewModel
-    var postData: [PostData] = [PostData(src: "2", srcType: .Image),
-                                PostData(src: "3", srcType: .Video),
-                                PostData(src: "4", srcType: .Image),
-                                PostData(src: "5", srcType: .Gif),
-                                PostData(src: "6", srcType: .Image),
-                                PostData(src: "7", srcType: .Image),
-                                PostData(src: "1", srcType: .Image),
-                                PostData(src: "8", srcType: .Video),
-                                PostData(src: "9", srcType: .Image),
-                                PostData(src: "10", srcType: .Gif),
-                                PostData(src: "11", srcType: .Image),
-                                PostData(src: "12", srcType: .Image)]
+    @ObservedObject var vieModel: PostGridViewModel
     
     init(user: User) {
-        self._vieModel = StateObject(wrappedValue: PostGridViewModel(user: user))
+        self._vieModel = ObservedObject(wrappedValue: PostGridViewModel(user: user))
     }
     
     var body: some View {
@@ -55,11 +38,14 @@ struct GridItemView: View {
                                 .clipped()
                         }
                     } header: {
-//                        headerView()
-                    } footer: {
                         headerView()
+                       
+                    } footer: {
+//                        headerView()
                     }
-     
+                }.isHidden(vieModel.feeds.count > 0 ? false:true, remove: vieModel.feeds.count > 0 ? false:true)
+                if vieModel.feeds.count <= 0 {
+                    nodataView()
                 }
             }
             .padding(.horizontal,5)
@@ -68,6 +54,7 @@ struct GridItemView: View {
             }
         }
     }
+    
     func headerView() -> some View {
         return VStack {
             RoundedRectangle(cornerRadius: 5)
@@ -108,6 +95,10 @@ struct GridItemView: View {
                     Color.white
                 }
         }
+    }
+    
+    func nodataView() -> some View {
+        return Text("No Posts are available")
     }
 }
 

@@ -7,23 +7,21 @@
 
 import SwiftUI
 import Kingfisher
-struct FeedHead {
-    var src: String
-    var name: String
-}
+
 
 struct FeedHeader: View {
-    var feedHead: FeedHead
-    
+    var post: Post
     var body: some View {
         HStack {
-            if let img = feedHead.src {
+            if let user = post.user, let img = user.src {
                 KFImage(URL(string: img))
                     .resizable()
                     .frame(maxWidth: 50,maxHeight: 50)
                     .clipShape(Circle())
             }
-            Text(feedHead.name).fontWeight(.black)
+            if let name = post.user?.userName {
+                Text(name).font(.headline)
+            }
             Spacer()
         }.padding(.horizontal)
     }
@@ -31,6 +29,6 @@ struct FeedHeader: View {
 
 struct FeedHeader_Previews: PreviewProvider {
     static var previews: some View {
-        FeedHeader(feedHead: FeedHead(src: "", name: "") )
+        FeedHeader(post: Post(id: "", src: "", title: "", srcType: .Image))
     }
 }

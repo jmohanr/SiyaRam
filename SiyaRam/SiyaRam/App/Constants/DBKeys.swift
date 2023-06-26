@@ -9,4 +9,6 @@ import Foundation
 enum DBKeys: String {
     case users = "users"
     case posts = "posts"
+    case likes = "likes"
+    case comments = "comments"
 }

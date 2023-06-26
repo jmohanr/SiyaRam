@@ -26,7 +26,9 @@ class UploadPostViewModel: ObservableObject {
     @Published var image: Image?
     @Published var src: String?
     @Published var uiImage: UIImage?
-
+    @Published var caption: String = ""
+    @Published var description: String = ""
+    
     func loadImageData(from item: PhotosPickerItem?) async {
         guard let item = item else {return}
         guard let data = try? await item.loadTransferable(type: Data.self) else {return}
@@ -35,13 +37,13 @@ class UploadPostViewModel: ObservableObject {
         self.uiImage = uImage
     }
     @MainActor
-    func uplaodPost(caption: String,user: User) async throws {
+    func uplaodPost(user: User) async throws {
         guard let uId = Auth.auth().currentUser?.uid else { return  }
         guard let img = self.uiImage else { return }
         let path = Firestore.firestore().collection(DBKeys.posts.rawValue).document()
         guard let imgURl = try? await ImageUpload.uploadImage(uImage: img) else { return }
         
-        let post = FeedData(id: path.documentID, src: imgURl, title: user.userName, srcType: .Image, feedDescription: caption,time: Timestamp(),ownerId: uId)
+        let post = Post(id: path.documentID, src: imgURl, title: caption, srcType: .Image, feedDescription: description,time: Timestamp(),ownerId: uId)
         guard let encodePost = try? Firestore.Encoder().encode(post) else { return }
         try await path.setData(encodePost)
     }
@@ -49,5 +51,7 @@ class UploadPostViewModel: ObservableObject {
     func clearPostModel() {
         self.photoItem = nil
         self.image = nil
+        caption = ""
+        description = ""
     }
 }

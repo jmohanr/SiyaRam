@@ -10,7 +10,7 @@ import PhotosUI
 
 struct UploadPostView: View {
     var currentUser: User
-    @State var caption = ""
+  
     @StateObject var viewModel =  UploadPostViewModel()
     @State var isPresentPhotoPicker: Bool = true
     @State var disbaleUpload = false
@@ -35,7 +35,7 @@ extension UploadPostView {
         HStack {
             Button {
                 clearPostData()
-                     } label: {
+            } label: {
                 Text("Cancel")
             }
             Spacer()
@@ -43,7 +43,7 @@ extension UploadPostView {
             Spacer()
             Button {
                 Task {
-                    try await viewModel.uplaodPost(caption:caption,user: currentUser)
+                    try await viewModel.uplaodPost(user: currentUser)
                     clearPostData()
                 }
             } label: {
@@ -61,13 +61,36 @@ extension UploadPostView {
                     .clipped()
                     .cornerRadius(10)
             }
-            TextField("Enter your caption...", text: $caption,axis: .vertical)
-                Spacer()
+            VStack(spacing: 15) {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(
+                        Color.gray.opacity(0.2)
+                    )
+                    .frame(height: 40)
+                    .overlay {
+                        TextField("Enter your caption...", text: $viewModel.caption,axis: .vertical)
+                            .padding(.horizontal)
+                    }
+                    
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(
+                        Color.gray.opacity(0.2)
+                    )
+                    .frame(height: 100)
+                    .overlay {
+                        TextField("Enter text ...", text: $viewModel.description,axis: .vertical)
+                            .padding(.horizontal)
+                            
+                            
+                    }
+                
+            }
+
+            Spacer()
         }
     }
     
     func clearPostData() {
-        caption = ""
         viewModel.clearPostModel()
         selectedIndex = 0
     }

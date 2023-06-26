@@ -9,7 +9,8 @@ import Foundation
 import Firebase
 
 class UsersService {
-    
+    @Published var users: [User] = []
+    static let shared  = UsersService()
     static func fetchUser(withuID uid: String) async throws -> User {
         let shot = try await Firestore.firestore().collection(DBKeys.users.rawValue).document(uid).getDocument()
         return try shot.data(as: User.self)
